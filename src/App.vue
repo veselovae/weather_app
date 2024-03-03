@@ -1,9 +1,9 @@
 <template>
-  <div class="wrapper"> 
+  <div class="wrapper" :class="{'error-wrapper': error, 'info-wrapper': info}"> 
     <h1>WeatherApp</h1>
-    <input type="text" v-model="city" placeholder="Enter the city" @keydown="getData($event)" autofocus>
+    <input type="text" v-model="city" placeholder="Enter the city" @keydown="getData($event)" @input="!city ? error = '' : ''" autofocus>
     <button v-if="city != ''" @click="getWeather()">Search</button>
-    <button v-else class="disabled" disabled @click="emptyInp()">Search</button>
+    <button v-else class="disabled" disabled>Search</button>
 
     <p class="error">{{ error }}</p>
 
@@ -42,7 +42,7 @@ export default {
       .catch(() => { 
           this.info = null;
           this.error = 'The city was not found';
-          return;
+          return false;
         })
         .then(res => (this.info = res.data));
 
@@ -52,11 +52,12 @@ export default {
     },
 
     getData(event) {
-      if (this.city === '') {
-        return false;
-      }
-
       if (event.key === 'Enter') {
+        if (this.city == '') {
+          this.info = null;
+          return false;
+        }
+
         this.getWeather();
       }
     },  
@@ -67,7 +68,7 @@ export default {
 <style scoped>
   .wrapper {
     width:  700px;
-    /*max-height: 219px;*/
+    max-height: 219px;
     border-radius: 50px;
     background: #1f0f24;
     color: #fff;
@@ -77,17 +78,17 @@ export default {
     overflow: hidden;
   }
 
-  /*.error-wrapper {
-    max-height: 237px; edit
-    transition: all .3s ease;
-    overflow: hidden;
-  }*/
+  .error-wrapper {
+    max-height: 237px;
+    /*transition: all .3s ease;
+    overflow: hidden;*/
+  }
 
-  /*.info-wrapper {
-    max-height: 788px; edit
-    transition: all .3s ease;
-    overflow: hidden;
-  }*/
+  .info-wrapper {
+    max-height: 788px;
+    /*transition: all .3s ease;
+    overflow: hidden;*/
+  }
 
   .wrapper h1 {
     margin-bottom: 20px;
