@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper" :class="{'error-wrapper': error, 'info-wrapper': info}"> 
+  <div class="wrapper"> 
     <h1>WeatherApp</h1>
     <input type="text" v-model="city" placeholder="Enter the city" @keydown="getData($event)" autofocus>
     <button v-if="city != ''" @click="getWeather()">Search</button>
@@ -12,11 +12,15 @@
 </template>
 
 <script>
+import smoothReflow from 'vue-smooth-reflow';
+
 import axios from 'axios';
 import WeatherData from './components/WeatherData.vue';
 
 export default {
   components: { WeatherData },
+
+  mixins: [smoothReflow],
 
   data() {
     return {
@@ -26,6 +30,10 @@ export default {
       info: null,
     }
   },
+
+  mounted(){
+        this.$smoothReflow()
+    },
 
   methods: {
     getWeather() {
@@ -59,7 +67,7 @@ export default {
 <style scoped>
   .wrapper {
     width:  700px;
-    max-height: 219px;
+    /*max-height: 219px;*/
     border-radius: 50px;
     background: #1f0f24;
     color: #fff;
@@ -69,17 +77,17 @@ export default {
     overflow: hidden;
   }
 
-  .error-wrapper {
-    max-height: 237px; /*edit*/
+  /*.error-wrapper {
+    max-height: 237px; edit
     transition: all .3s ease;
     overflow: hidden;
-  }
+  }*/
 
-  .info-wrapper {
-    max-height: 788px; /*edit*/
+  /*.info-wrapper {
+    max-height: 788px; edit
     transition: all .3s ease;
     overflow: hidden;
-  }
+  }*/
 
   .wrapper h1 {
     margin-bottom: 20px;
