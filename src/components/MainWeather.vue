@@ -19,7 +19,8 @@
 
         computed: {
             getSrcImg() {
-                const src = `../assets/${this.info?.weather[0]?.main.toLowerCase()}.PNG`;
+                // const src = `../assets/${this.info?.weather[0]?.main.toLowerCase()}.png`;
+                const src = `../${this.info?.weather[0]?.main.toLowerCase()}.png`;
                 return new URL(src, import.meta.url);
             },
             getTemp() {
