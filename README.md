@@ -13,7 +13,7 @@
 
 ## Технологии
 - HTML5
-- CSS5
+- CSS
 - [Vue3](https://v3.ru.vuejs.org/)
 - [axios](https://axios-http.com/ru/)
 
